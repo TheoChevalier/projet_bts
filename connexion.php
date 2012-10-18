@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('includes/connexion.php');
 include('includes/fonctions.php');
 include('includes/image.php');
 connexionbdd();

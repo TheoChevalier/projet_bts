@@ -120,7 +120,7 @@ while($cat = mysql_fetch_array($requete_cat))
       ?>
       </select>
       <div class="ajouter_panier"><span id="prix"><?php echo str_replace(".", ",", $infos['art_prix']); ?></span> &#128; &#160; X &#160; <input type="text" value="1" size="1" name="art_qte" />
-      <button type="submit" name="ajout_panier" id="ajout_panier"><img src="images/icones/trolley.png" alt="" /> Ajouter au panier</button>
+      <button type="submit" class="button" name="ajout_panier" id="ajout_panier"><img src="images/icones/trolley.png" alt="" /> Ajouter au panier</button>
       </div>
     </form>
     <div class="art_det_stock"><p>Disponibilité : <img id="dispo" src="images/icones/<?php if($infos['art_qte'] > 0)echo 'check.png';
