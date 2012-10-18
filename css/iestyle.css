@@ -1,0 +1,23 @@
+/*Corrige le manque de la pseudo-classe CSS :last-child, sensée effacer le bord droit du dernier lien du menu,
+ donc il faut le rétrécir pour prendre en compte le pixel supplémentaire.*/
+#onglets_menu .onglet_general{width: 12.4%;}
+
+
+/*Corrige le manque de prise en charge de la propriété opacity, IE ne masque donc pas les onglets*/
+.sous_menu_afficher{display: none;}
+
+
+/*Même principe pour la notification d'ajout au panier*/
+#ajout{display: none;}
+
+
+/*Comble le vide de la non prise en charge de box-shadow dans le diaporama*/
+#diaporama #wrapper #textes{margin-top: 0px;}
+
+
+/*Text-shadow non pris en charge, donc les "Vs." étaient en blanc sur blanc sous IE*/
+.resultats_vs{color:#333;}
+
+
+/*Dégradés linéaires alpha non supporté: réduction de la marge laissée au dégradé*/
+#footer ul{padding-top: 10px;}

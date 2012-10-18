@@ -1,0 +1,22 @@
+Système de comptes utilisateurs ($_SESSION)
+
+profil utilisateur (vérification de champs en php (pré-vérification en javascript si possible, à intégrer après) , upload photo, script de redimension d'image)
+
+header dynamique (juste pas l'oublier...)
+
+Diaporama AJAX
+
+Mettre en place des slides CSS si possible
+
+Envoi d'emails HTML -comptes, inscription, renvoi de mot de passe, renvoi clé activation ... -(chercher un thème sympa, et intégré au design)
+
+Gestion d'articles, ou de vidéos, ou d'albums etc. à l'aide de la bdd, puis affichage des 3,5?) derniers en page d'accueil.
+
+AMELIORATIONS:
+
+Vérifier que le stock est supérieur ou égal à la quantité commandée.
+
+séparer en deux la page de connexion: un carré connexion, et un carré créer un compte avec un champs mail, un cookie le retiendra ( ou une session?)
+ l'écran suivant, le gros formulaire (vérification AJAX si possible) puis enregistrement bdd., puis envoi mail
+ 
+Mettre le titre et le prix en position relative

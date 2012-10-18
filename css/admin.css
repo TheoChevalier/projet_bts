@@ -1,0 +1,14 @@
+﻿/*Style appliqué uniquement quand un administrateur est connecté*/
+#menu_top, .ribbon, .art_name, .commande_montant button, #quiz input[type="button"],input[type="submit"], .submit, button{background: #c60090;/*bleu:008fc6 rose:c60090 vert:87c600*/}
+.panier_total{color: #c60090;}
+.panier_top{background:#f4e3eb;}
+.ribbon:before {border-color: #80005a #80005a transparent transparent;}/*bleu f: 005a80; rose f: 80005a; vert f: 578000*/
+.sous_menu_onglet:hover{
+  background: #f4e3eb;/*Bleu: #e3ebf4 vert: rgb(235,244,227)#ebf4e3 rose: #f4e3eb*/
+  box-shadow: 
+  inset #e3c4d5 0 2px 0px,
+  0 0 3px 2px #e3c4d5 inset;
+}/*bleu f: #c4d4e3, vert f: #d4e3c4, rose f: #e3c4d5*/
+.image_defaut{background: #f4e3eb;}
+input[type="submit"]:hover, .submit:hover, button:hover{background: #db009f;}
+input[type="submit"], .submit, button{color: #fff;text-shadow: none;}

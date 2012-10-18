@@ -1,0 +1,60 @@
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+CREATE TABLE IF NOT EXISTS `articles` (
+  `art_id` int(11) NOT NULL AUTO_INCREMENT,
+  `art_name` varchar(100) COLLATE latin1_general_cs NOT NULL,
+  `art_desc` text CHARACTER SET utf8 NOT NULL,
+  `art_cat` set('high-tech','films','musique') COLLATE latin1_general_cs NOT NULL,
+  `art_type` varchar(255) COLLATE latin1_general_cs NOT NULL,
+  `art_prix` float NOT NULL,
+  `art_date` date NOT NULL,
+  `art_stock` enum('0','1') COLLATE latin1_general_cs NOT NULL,
+  PRIMARY KEY (`art_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs AUTO_INCREMENT=5 ;
+
+INSERT INTO `articles` (`art_id`, `art_name`, `art_desc`, `art_cat`, `art_type`, `art_prix`, `art_date`, `art_stock`) VALUES
+(1, 'H2G2, le guide du voyageur intergalactique', 'Sale journée pour ...', 'films', 'DVD', 19.99, '2011-09-17', '1'),
+(2, 'Star Wars, l''intégrale', 'Int?.grale de Star Wars', 'films', 'DVD', 80.99, '2011-09-17', '1'),
+(3, 'Test', 'Ceci est un test ! : \\ * ?? !! // <!--comment !-->', 'high-tech', 'test', 30.59, '2011-09-01', '0'),
+(4, 'Test 2', 'test', 'films', 'DVD', 20.15, '2011-09-16', '0');
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(32) COLLATE latin1_general_cs NOT NULL,
+  `user_password` varchar(32) COLLATE latin1_general_cs NOT NULL,
+  `user_mail` varchar(255) COLLATE latin1_general_cs NOT NULL,
+  `user_date` date NOT NULL,
+  `user_activation` enum('0','1') COLLATE latin1_general_cs NOT NULL DEFAULT '0',
+  `user_key` varchar(16) COLLATE latin1_general_cs NOT NULL,
+  `user_rang` tinyint(4) NOT NULL DEFAULT '2',
+  `user_avatar` varchar(15) COLLATE latin1_general_cs NOT NULL DEFAULT 'defaut.png',
+  PRIMARY KEY (`user_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_cs AUTO_INCREMENT=28 ;
+
+INSERT INTO `user` (`user_id`, `user_name`, `user_password`, `user_mail`, `user_date`, `user_activation`, `user_key`, `user_rang`, `user_avatar`) VALUES
+(1, 'jiminy', 'plop', 'test@huhgyg.gt', '0000-00-00', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(2, 'test2', 'plop', 'kjgff@hg.hy', '2011-09-16', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(4, 'plop', '64a4e8faed1a1aa0bf8bf0fc84938d25', 'plop@hgt.fr', '2011-09-17', '1', 'abcdef0123456789', 2, 'defaut.png'),
+(5, 'plop2', '64a4e8faed1a1aa0bf8bf0fc84938d25', 'plop@uhuhg.fr', '2011-09-20', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(6, 'plop3', 'bc23f0489ba284ed0aab20642cf6b1d7', 'plop3@hgu.gt', '2011-09-20', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(7, 'plop4', '84b354d36473a636cb3ff8969c80cfa6', 'plop4@jh.gt', '2011-09-20', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(8, 'plop5', '85782b3afb04072c1bf172a6a7e6bb5e', 'theo.chevalier11@gmail.com', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(9, 'plop6', '5d23bd8f7f2192dfb93699174e40a948', 'plop6@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(10, 'plop7', 'aeb2a3b71870a6f774ba2a2db39e6357', 'plop7@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(11, 'plop8', '8e5cc1b26bc3837cf80068a6ce4fecbd', 'plop8@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(12, 'plop9', '55edb074fe5513c927346906aa296ba5', 'plop9@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(13, 'plop10', '2fdf81a830ce1780adcf96ac928018da', 'plop10@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(14, 'plop11', '81b04c236db423b7d322ebd3ee099eb7', 'plop11@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(15, 'plop12', 'a940f7683e4257e7808f17253a13373a', 'plop12@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(16, 'plop13', 'a3963704c91c6f0b0dd578fee91b83d1', 'plop13@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(17, 'plop14', 'f68c97f1e8f4939006f4fb8d013fda85', 'plop14@plop.fr', '2011-09-21', '0', 'abcdef0123456789', 2, '.jpg'),
+(18, 'plop15', '9dbbe1b677153812da03fea95270a3fa', 'plop15@plop.fr', '2011-09-22', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(19, 'plop17', '242fe79f2e305502da1a43c2a2ebbe60', 'plop17@plop.fr', '2011-09-22', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(20, 'plop18', 'd821e22ea5a4d7effb9ddbb5fb8ab5d9', 'plop18@plop.fr', '2011-09-22', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(21, 'plop19', '245ab55b68506aef315a8b47facc34ad', 'plop19@plop.fr', '2011-09-22', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(22, 'plop20', 'b8de5ac05e0da7e60cc7a700f0f2df1e', 'plop20@plop.fr', '2011-09-22', '0', 'abcdef0123456789', 2, 'defaut.png'),
+(23, 'plop21', '3434832f404ff0e6265ab2a3b9df0613', 'plop21@plop.fr', '2011-09-22', '0', 'abcdef0123', 2, 'defaut.png'),
+(24, 'plop22', 'f7f2cf91e3dc8642d7485753fe956bcd', 'plop22@plop.fr', '2011-09-22', '0', '2e3a0d9f41', 2, 'defaut.png'),
+(25, 'plop23', '52ddd38ced390c87b24810a79f3bd29d', 'plop23@plop.fr', '2011-09-22', '0', '', 2, 'defaut.png'),
+(26, 'plop24', '432b74fbdbaf5fe138df31d321dd1f95', 'plop24@plop.fr', '2011-09-22', '0', '0697f83d2a', 2, 'defaut.png'),
+(27, 'plop25', '99c67cf74ff74f91064c0eb6f7b83d0f', 'plop25@plop.fr', '2011-09-22', '0', 'f359682ea4c01b7d', 2, 'defaut.png');
