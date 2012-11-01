@@ -8,7 +8,7 @@ connexionbdd();
 $nb_art=0;
 $tableau_art_panier = array();
 //Contrôle de la session utilisateur lors de l'accès aux pages de validation du panier
-if(isset($_GET['page']) && $_GET['page'] == "panier" && ($_SERVER['REQUEST_URI'] != "/index.php?page=panier" && $_SERVER['REQUEST_URI'] != "/PPE/index.php?page=panier"))
+if(isset($_GET['page']) && $_GET['page'] == "panier" && ($_SERVER['REQUEST_URI'] != "/index.php?page=panier" && $_SERVER['REQUEST_URI'] != "/ppe/index.php?page=panier"))
   actualiser_session("Avant de valider votre panier, connectez-vous à votre compte, ou créez-en un:");
   
 //Contrôle de la session utilisateur lors de l'accès à la page d'historique des commandes

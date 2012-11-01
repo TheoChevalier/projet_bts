@@ -6,7 +6,7 @@
 <head>
   <title><?php if(isset($titre)) echo $titre.' | LPL'; else echo "LPL | Ligue de Paintball de Lorraine"; ?></title>
   <meta charset="utf-8">
-  <meta name="author" content="Théo Chevalier, Solène Bitsch"/>
+  <meta name="author" content="Théo Chevalier"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="description" content="Site de la ligue de paintball de Lorraine">
   <meta name="viewport" content="width=device-width,initial-scale=1">

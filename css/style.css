@@ -340,8 +340,8 @@ background: rgb(235,244,227);
 }
 /* Styles de la structure générale des pages */
 body{
-background: url('../images/body_bg.png') repeat;
-/*
+/*background: url('../images/body_bg.png') repeat;
+
 Version -moz désactivée tant que le bug 655786 (https://bugzilla.mozilla.org/show_bug.cgi?id=655786) ne sera pas résolu.
 (Fortes dégradations de performances à l'execution du code dues à un bug de l'accélération matérielle.)
 Version non préfixée egalement désactivée, car -moz rajouté par CSS Cruch à partir de la version non-préfixée.
@@ -355,7 +355,7 @@ background:
   -moz-radial-gradient(#171717 15%, transparent 16%) 0 0,
   -moz-radial-gradient(#171717 15%, transparent 16%) 8px 8px,
   -moz-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-  -moz-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;*/
+  -moz-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
  background:
   -webkit-radial-gradient(#171717 15%, transparent 16%) 0 0,
   -webkit-radial-gradient(#171717 15%, transparent 16%) 8px 8px,
@@ -372,7 +372,8 @@ background:
   -ms-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
   -ms-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
 background-color:#3d3d3d;
-background-size:16px 16px;
+background-size:16px 16px;*/
+background-color: #eee;
 line-height: -100%!important;
 }
 #avertissement{
@@ -412,10 +413,10 @@ line-height: -100%!important;
   background: #87c600;/*bleu:008fc6 rose:c60090 vert:87c600*/
   margin-bottom: 50px;
   overflow: hidden;
-  -webkit-box-shadow: inset 0px 0px 10px #fff, 0px 0px 20px #000;
-  -moz-box-shadow: inset 0px 0px 10px #fff, 0px 0px 20px #000;
-  -o-box-shadow: inset 0px 0px 10px #fff, 0px 0px 20px #000;
-  box-shadow: inset 0px 0px 10px #fff, 0px 0px 20px #000;
+  -webkit-box-shadow: inset 0px 0px 10px #fff, 0px 0px 3px #000;
+  -moz-box-shadow: inset 0px 0px 10px #fff, 0px 0px 3px #000;
+  -o-box-shadow: inset 0px 0px 10px #fff, 0px 0px 3px #000;
+  box-shadow: inset 0px 0px 10px #fff, 0px 0px 3px #000;
   text-shadow: 0px 1px 0px #ccc;
   -webkit-border-radius: 0 0 50% 50%/10px;
   -moz-border-radius: 0 0 50% 50%/10px;
@@ -1724,9 +1725,8 @@ textarea::input-placeholder, input::input-placeholder {
   margin-bottom: 20px;
   display: table;
   width: 100%;
-  text-shadow: 0px 5px 5px #000;
 }
-#footer a{color: #ccc; padding: 5px;}
+#footer a{color: #333; padding: 5px;}
 #footer ul{
   display: table-cell;
   height: 100%;
@@ -1734,9 +1734,9 @@ textarea::input-placeholder, input::input-placeholder {
   padding: 70px 18px 20px 20px;
   list-style-type: none;
   line-height: 19px;
-  color: #cdcdcd;
-  border-right: 1px dashed #a9a9a9;
-  border-right: 1px dashed rgba(255,255,255,0.6);
+  color: #333;
+  border-right: 1px dashed #999;
+  border-right: 1px dashed rgba(150,150,150,0.6);
 }
 #footer ul:last-child {border-right: none;}
 #footer a{
