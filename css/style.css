@@ -263,7 +263,7 @@ table { border-collapse: collapse; border-spacing: 0; }
   transition-duration: 0.1s;
 }
 #onglets_menu .onglet_general:hover{
-  box-shadow: inset 0px 0px 7px rgba(0,0,0,0.7);
+  box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2);
 }
 #onglets_menu .onglet_general:hover  .lien_general
 {
@@ -503,7 +503,6 @@ line-height: -100%!important;
   margin-left: 15px;
   font-family: TizaRegular, Impact, Arial;
   color: #aaa;
-  text-shadow: 0px 0px 5px #000, 2px 2px 0px #000;
   font-size: 25px;
 }
 #header{
@@ -1756,8 +1755,6 @@ textarea::input-placeholder, input::input-placeholder {
 }
 .copyright{
   margin: 20px 0px;
-  color: #cdcdcd;
-  text-shadow: 0px 5px 5px #000;
 }
 /* 404 NOT FOUND */
 .not_found{

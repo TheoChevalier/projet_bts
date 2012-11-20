@@ -132,18 +132,25 @@ include('includes/header.php');
 <!--Menu général du site-->
   <div id="onglets_menu">
   <ul id="onglets_generaux">
-    <li class="onglet_general"><a class="lien_general" href="index.php">Accueil</a></li>
-    <li class="onglet_general"><a class="lien_general" href="index.php?cat">Shop</a>
-      <div class="sous_menu_afficher">
+    
+    <?php
+    $req_menu = mysql_query("SELECT * FROM menu");
+     while($menu = mysql_fetch_array($req_menu)) { ?>
+      <li class="onglet_general"><a class="lien_general" href="index.php?page=<?php echo $menu['lien']; ?>"><?php echo $menu['nom']; ?></a><?php
+      if ($menu['lien'] == 'cat') { ?>
+        <div class="sous_menu_afficher">
         <ul class="sous_menu_onglets_liste">
           <?php $reponse = mysql_query('SELECT * FROM categories ORDER BY cat_nom');
             while($cat = mysql_fetch_array($reponse))
             {
               echo '<li class="sous_menu_onglet"><a href="index.php?cat='.$cat['cat_code'].'">'.utf8_encode($cat['cat_nom']).'</a></li>';
-            }?>
+            } ?>
         </ul>
-      </div>
-    </li>
+      </div><?php
+      }
+      ?></li><?php
+    }
+    ?>
     <li class="onglet_general"><a class="lien_general" href="index.php?page=equipes">&#201;quipes</a>
       <div class="sous_menu_afficher">
         <ul class="sous_menu_onglets_liste">
