@@ -358,7 +358,7 @@ if(isset($_GET['user_id']) && !empty($_GET['user_id']))
               <label for="TB_verif_password">Mot de passe</label>
               <input type="password" id="TB_verif_password" autocomplete="off" name="TB_verif_password" required=""/>
             </p>
-            <button class="submit" type="submit" name="modifier_donnees" >Envoyer</button>
+            <button class="button submit" type="submit" name="modifier_donnees" >Envoyer</button>
           </fieldset>
           </div>
           </form>
@@ -375,10 +375,10 @@ if(isset($_GET['user_id']) && !empty($_GET['user_id']))
           <img src="images/upload/<?php echo $profil['user_avatar']; ?>" alt="" />
         </div>
         <div class="equipe_description">
-        <a href="index.php?page=profil&user_id=<?php echo utf8_encode($profil['user_id']); ?>&modifier" class="button"><button>Modifier mon profil</button></a>
-        <a href="connexion.php?deco" class="button"><button>Déconnexion</button></a>
-        <a href="connexion.php?delete" class="button"><button>Supprimer mon profil</button></a>
-        <a href="index.php?page=commandes" class="button"><button>Mes commandes</button></a>
+        <a href="index.php?page=profil&user_id=<?php echo utf8_encode($profil['user_id']); ?>&modifier"><button class="button">Modifier mon profil</button></a>
+        <a href="connexion.php?deco" ><button class="button">Déconnexion</button></a>
+        <a href="connexion.php?delete"><button class="button">Supprimer mon profil</button></a>
+        <a href="index.php?page=commandes"><button class="button">Mes commandes</button></a>
         <p><?php if($profil['user_titre'] == 1) echo 'M.'; elseif($profil['user_titre'] == 2) echo 'Mme.'; else echo 'Mlle.'; 
         echo utf8_encode(' '.$profil['user_prenom'].' '.$profil['user_nom']);?></p>
         <p>Vos équipe(s): <?php
@@ -399,7 +399,7 @@ if(isset($_GET['user_id']) && !empty($_GET['user_id']))
           case 2: echo "activé.";
           break;
           case 3: echo "celui d'un administrateur.";
-            echo '<p><a href="index.php?page=profil&administrer" class="button"><button>Gérer les membres</button></a></p>';
+            echo '<p><a href="index.php?page=profil&administrer"><button class="button">Gérer les membres</button></a></p>';
           break;
         }
         echo '</p>';

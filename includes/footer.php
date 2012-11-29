@@ -1,7 +1,6 @@
 </div>
   </div>
     <footer>
-      <div id="footer">
         <ul>
         <li class="footer_titre">NOS PRODUITS</li>
         <?php
@@ -44,8 +43,8 @@
           <p><img src="images/icones/visa_mc.png" alt="VISA / Master Card" /></p>
           <p><a href="http://www.lorraine.eu" alt="" target="_blank"><img src="images/icones/lorraine.png" alt="La région Lorraine" /></a></p>  
         </ul>
-      </div>
-      <div class="copyright">Ligue de paintball de Lorraine &copy; 2011. Designed by <a href="http://www.theochevalier.fr" target="_blank">Théo Chevalier</a>. Tous droits réservés.</div>
-    </footer>
+     </footer>
+       <div class="copyright">Ligue de paintball de Lorraine &copy; 2011. Designed by <a href="http://www.theochevalier.fr" target="_blank">Théo Chevalier</a>.</div>
+   
   </div> <!--! end of #container -->
 <?php if(isset($_GET['epuise'])) echo'<script>alert("Nous sommes désolés, la quantité disponible pour cet article est inférieure à la quantité que vous demandez.");</script>'; ?>

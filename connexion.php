@@ -20,7 +20,7 @@ if(isset($_SESSION['user_id']) && !isset($_GET['deco']) && $_SERVER['SCRIPT_NAME
   $titre = "Connexion";
   $nb_succes++;
   $succes[$nb_succes] = 'Vous êtes déjà connecté avec le pseudo <b>'.htmlspecialchars($_SESSION['user_name'], ENT_QUOTES).'</b>.
-  <br /><a href="connexion.php?deco"><img src="images/icones/sign_out.png" alt"" align="top" /> Se déconnecter</a>';
+  <br /><a href="connexion.php?deco" class="button"><img src="images/icones/sign_out.png" alt"" align="top" /> Se déconnecter</a>';
   $masquer_formulaire = true;
 }
 
@@ -78,7 +78,7 @@ elseif(isset($_GET['delete']))
     $titre = "Supprimer le compte";
     $nb_succes++;
     $succes[$nb_succes] = 'Êtes-vous certain de vouloir supprimer votre compte et l\'ensemble de vos données ? Cette action est irréversible.<br/><br/>
-    <form enctype="multipart/form-data" action="connexion.php?delete" method="post" ><input type="submit" name="delete_y" value="Oui, supprimez mon compte." /><input type="submit" name="delete_n" value="Pas fou, non? Sortez-moi de là !" /></form>';
+    <form enctype="multipart/form-data" action="connexion.php?delete" method="post" ><input type="submit" class="button" name="delete_y" value="Oui, supprimez mon compte." /><input type="submit" class="button" name="delete_n" value="Pas fou, non? Sortez-moi de là !" /></form>';
     $masquer_formulaire = true;
   }
 }
@@ -258,9 +258,9 @@ elseif(isset($_GET['aide']))
   {
     $nb_succes++;
     $succes[$nb_succes] = 'DON\'T PANIC! Quel est votre problème ?<br/><br/><form enctype="multipart/form-data" action="connexion.php?aide" method="post" >
-    <button type="submit" name="aide_password">J\'ai oublié mon mot de passe ... <img src="images/icones/snif.gif" alt="" /></button>
-    <button type="submit" name="aide_mail">Je n\'ai pas reçu le mail d\'activation ... <img src="images/icones/calim.gif" alt="" /></button></form>
-    <br/><br/><a href="connexion.php?delete" class="button"><button>Je me suis trompé en créant mon compte, je veux recommencer !</button></a>';
+    <button type="submit" class="button" name="aide_password">J\'ai oublié mon mot de passe ... <img src="images/icones/snif.gif" alt="" /></button>
+    <button type="submit" class="button" name="aide_mail">Je n\'ai pas reçu le mail d\'activation ... <img src="images/icones/calim.gif" alt="" /></button></form>
+    <br/><br/><a href="connexion.php?delete"><button class="button">Je me suis trompé en créant mon compte, je veux recommencer !</button></a>';
   }
   $masquer_formulaire = true;  
 }
@@ -1013,7 +1013,7 @@ function checkPassword(password1, password2) {
       <label><span class="champ_obligatoire">(*)</span>: champ obligatoire</label>
     </p>
     <p>
-      <input type="submit" name="creer_compte" value="Créer le compte" />
+      <input type="submit" class="button" name="creer_compte" value="Créer le compte" />
     </p>
     
 </form>
@@ -1037,7 +1037,7 @@ elseif(!empty($_GET['id_dest']))
     <div><label for="em_email">Votre email:</label> <input type="email" name="em_email" id="em_email" readonly="true" value="<?php echo $expe['user_mail']; ?>" placeholder="john.doe@site.org" required="" /></div>
     <div><label for="em_message">Message:</label> <textarea id="em_message" name="em_message" rows="4" cols="80" placeholder="Votre message." required=""></textarea></div>
     <input type="hidden" name="em_dest" id="em_dest" value="<?php echo $_GET['id_dest']; ?>" />
-    <button class="submit" name="envoyer_message" type="submit" >Envoyer</button>
+    <button class="submit" class="button" name="envoyer_message" type="submit" >Envoyer</button>
     </form>
   </div><?php
 }
@@ -1057,7 +1057,7 @@ elseif(isset($_GET['contact']))
       <div><label for="contacter_email">Email:</label> <input type="email" name="contacter_email" id="contacter_email" placeholder="john.doe@site.org" required="" /></div>
       <div><label for="contacter_message">Message:</label> <textarea id="contacter_message" name="contacter_message" rows="4" cols="80" placeholder="Votre message." required="" ></textarea></div>
       <input type="hidden" name="verif" id="verif" value="1" />
-      <button class="submit" type="submit" >Envoyer</button>
+      <button class="submit" class="button" type="submit" >Envoyer</button>
       </form>
     </div>
   </div>
@@ -1072,9 +1072,9 @@ elseif(isset($_POST['aide_mail']))
 { ?>
   <form enctype="multipart/form-data" action="connexion.php?aide" method="post">
   <h2>Renvoi du mail d'activation</h2>
-  <label for="aide_mail_mail">Adresse mail avec laquelle vous vous êtes inscrit(e) : </label><input type="email" name="aide_mail_mail" id="aide_mail_mail" placeholder="john.doe@site.org" required=""/>
+  <label for="aide_mail_mail">Adresse mail avec laquelle vous vous êtes inscrit(e) : </label><input type="email" name="aide_mail_mail" id="aide_mail_mail" placeholder="john.doe@site.org" required=""/>
   <input type="hidden" name="aide_mail" />
-  <input type="submit" value="Envoyer" />
+  <input type="submit" class="button" value="Envoyer" />
   </form>
   <?php $masquer_formulaire = true;
 }
@@ -1087,9 +1087,9 @@ elseif(isset($_POST['aide_password']))
 { ?>
   <form enctype="multipart/form-data" action="connexion.php?aide" method="post">
   <h2>Réinitialisation du mot de passe (Etape 1/2)</h2>
-  <label for="aide_password_mail">Adresse mail avec laquelle vous vous êtes inscrit(e) : </label><input type="email" name="aide_password_mail" id="aide_password_mail" placeholder="john.doe@site.org"  required=""/>
+  <label for="aide_password_mail">Adresse mail avec laquelle vous vous êtes inscrit(e) : </label><input type="email" name="aide_password_mail" id="aide_password_mail" placeholder="john.doe@site.org"  required=""/>
   <input type="hidden" name="aide_password" />
-  <input type="submit" value="Envoyer" />
+  <input type="submit" class="button"  value="Envoyer" />
   </form>
   <?php $masquer_formulaire = true;
 }
@@ -1104,15 +1104,15 @@ elseif($demander_password == true)
   <h2>Réinitialisation du mot de passe (Etape 2/2)</h2>
   <p>Saisissez votre nouveau mot de passe</p>
   <p>
-    <label for="aide_password_new">Mot de passe : </label><input type="password" autocomplete="off" name="aide_password_new" id="aide_password_new" required=""/>
+    <label for="aide_password_new">Mot de passe : </label><input type="password" autocomplete="off" name="aide_password_new" id="aide_password_new" required=""/>
   </p>
   <p>
-    <label for="aide_password_new_conf">Confirmation : </label><input type="password" autocomplete="off" name="aide_password_new_conf" id="aide_password_new_conf"
+    <label for="aide_password_new_conf">Confirmation : </label><input type="password" autocomplete="off" name="aide_password_new_conf" id="aide_password_new_conf"
     onfocus="checkPassword(document.getElementById('aide_password_new'), this);" oninput="checkPassword(document.getElementById('aide_password_new'), this);" required="" />
   </p>
   <input type="hidden" name="aide_password_key_reinit" value="<?php echo $key_reinit; ?>"/>
   <input type="hidden" name="aide_password_key_id" value="<?php echo $key_id; ?>"/>
-  <input type="submit" value="Envoyer" />
+  <input type="submit" class="button" value="Envoyer" />
   </form>
   </div>
 <?php
@@ -1136,7 +1136,7 @@ elseif($masquer_formulaire == false) { ?>
       <label for="cookie">Se souvenir de moi </label><input type="checkbox" name="cookie" id="cookie"/>
     </p>
     <p>
-      <input type="submit" value="Connexion" />
+      <input type="submit" class="button" value="Connexion" />
     </p>
 
     <p id="aide_connexion">
@@ -1154,7 +1154,7 @@ elseif($masquer_formulaire == false) { ?>
     <input type="email" id="TB_user_mail_1" tabindex="40" autocomplete="off" name="TB_user_mail_1" placeholder="Votre adresse mail" required="" />
   </p>
   <p>
-    <input type="submit" name="renvoyer_form_creer_compte" value="Créer le compte" />
+    <input type="submit" class="button" name="renvoyer_form_creer_compte" value="Créer le compte" />
   </p>
 </div>
 </form>

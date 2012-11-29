@@ -65,7 +65,7 @@ if(isset($_COOKIE['art_panier']) && isset($_GET['payer']))
     <p><label for="payer_securite">Code de sécurité</label> <input type="text" maxlength="3" name="payer_securite" id="payer_securite" <?php if(isset($_POST['payer_securite'])) echo 'value="'.htmlspecialchars($_POST['payer_securite']).'"'; ?>/></p>
     <p><label for="payer_expire">Date d'expiration</label> <input type="text" maxlength="2" name="payer_expire" id="payer_expire" size="1" <?php if(isset($_POST['payer_expire'])) echo 'value="'.htmlspecialchars($_POST['payer_expire']).'"'; ?> /> 
     / <input type="text" maxlength="2" name="payer_annee" id="payer_annee" size="1" <?php if(isset($_POST['payer_annee'])) echo 'value="'.htmlspecialchars($_POST['payer_annee']).'"'; ?> /></p>
-    <button class="submit" type="submit" >Envoyer</button>
+    <button class="button" type="submit" >Envoyer</button>
     </form>
     </div>
     </div>
@@ -94,8 +94,8 @@ elseif(isset($_COOKIE['art_panier']) && isset($_GET['valider']))
     <p><?php echo utf8_encode($profil['user_cp'].' '.$profil['user_ville']); ?></p>
     <?php if(!empty($profil['user_tel'])) echo '<p>Tel : 0'.$profil['user_tel'].'</p>'; ?>
   </div>
-  <a href="index.php?page=panier&amp;modifier" class="button"><button><img src="images/icones/modifier.png" alt="" /> Modifier les informations</button></a>
-  <a href="index.php?page=panier&amp;payer" class="button"><button><img src="images/icones/arrow_right.png" alt="" /> Régler la commande</button></a>
+  <a href="index.php?page=panier&amp;modifier" ><button class="button"><img src="images/icones/modifier.png" alt="" /> Modifier les informations</button></a>
+  <a href="index.php?page=panier&amp;payer"><button class="button"><img src="images/icones/arrow_right.png" alt="" /> Régler la commande</button></a>
 <?php  
 }
 //Si lors de la vérification du panier l'utilisateur demande la modification
@@ -219,7 +219,7 @@ elseif(isset($_COOKIE['art_panier']) && isset($_GET['modifier']))
               <input type="text" id="TB_user_tel" autocomplete="off" value="<?php echo $tel; ?>" name="TB_user_tel" />
             </p>
             <p>
-              <button class="submit" type="submit" name="modifier" >Envoyer</button>
+              <button class="button" type="submit" name="modifier" >Envoyer</button>
             </p>
           </div>
         </form>
@@ -243,7 +243,7 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
   <br />Cliquez sur "Vérifier mes informations" pour choisir votre adresse de livraison.
   <?php }else{ ?>
   Vérifiez les produits sélectionnés, ainsi que leur quantité.
-  S'il y a des erreurs, cliquez sur le bouton "Modifier mon panier", sinon vous pouvez cliquer sur "Valider mon panier".
+  S'il y a des erreurs, cliquez sur le bouton « Modifier mon panier », sinon vous pouvez cliquer sur « Valider mon panier ».
   <?php } ?>
   <table class="panier">
   <tr class="panier_top">
@@ -261,20 +261,25 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
   $tableau_art_panier = unserialize($_COOKIE['art_panier']);
   foreach($tableau_art_panier as $art_id => $art_qte)
   {
+    $tab_code = explode('F', $art_id);
+    $art_id = intval($tab_code[0]);
+    $code_fourn = intval($tab_code[1]);
     //On récupère les informations du produit dans la bdd
     $requete_art = mysql_query('SELECT * FROM articles WHERE art_id ='.intval($art_id));
-    $art = mysql_fetch_array($requete_art);  
+    $art = mysql_fetch_array($requete_art);
+    $prix = mysql_fetch_array(mysql_query('SELECT art_prix, art_qte FROM fournir WHERE art_id ='.intval($art_id).' AND code_fourn = '.$code_fourn));
     //Si le stock est supérieur à la quantité commandée, et qu'il est supérieur à 0
-    if($art['art_stock'] >= $art_qte && $art['art_stock'] > 0 && $art_qte > 0)
-    { ?>
+    if($prix['art_qte'] >= $art_qte && $prix['art_prix'] > 0 && $art_qte > 0)
+    {?>
+    
       <tr class="panier_ligne">
         <td class="panier_img"><img src="articles/<?php echo $art['art_id']; ?>.jpg" alt="" /></td>
         <td class="panier_name"><?php echo utf8_encode($art['art_name']); ?></td>
         <td class="panier_id">id<?php echo $art['art_id']; ?></td>
         <td class="panier_stock"><img src="images/icones/check.png" alt="" /></td>
-        <td class="panier_prix"><?php echo str_replace(".", ",", $art['art_prix']); ?> &#128;</td>
+        <td class="panier_prix"><?php echo str_replace(".", ",", $prix['art_prix']); ?> &#128;</td>
         <td class="panier_qte"><?php echo $art_qte; ?></td>
-        <td class="panier_sous_total">+ <?php $sous_total = $art['art_prix'] * $art_qte;
+        <td class="panier_sous_total">+ <?php $sous_total = $prix['art_prix'] * $art_qte;
         echo str_replace(".", ",", $sous_total).' &#128;'; $total = $total + $sous_total;?></td>
       </tr><?php
     }
@@ -294,29 +299,37 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
       //Si la clé panier à déjà été enregistrée auparavent et jamais utilisée
       if($requete_key)
       {
+        // Enregistrement de la commande
+        
+            mysql_query("INSERT INTO commandes (com_date, com_id, user_id)
+            VALUES( '".date("Y-m-d", time())."', '".$key_panier."', '".$_SESSION['user_id']."')");
         //Pour chaque articles, je vérifie le stock
+        $total = 0;
         foreach($tableau_art_panier as $art_id => $art_qte)
         {
-          $requete_art = mysql_query('SELECT * FROM articles WHERE art_id ='.intval($art_id));
-          $art = mysql_fetch_array($requete_art);
+          $tab_code = explode('F', $art_id);
+          $art_id = intval($tab_code[0]);
+          $code_fourn = intval($tab_code[1]);
+          $art = mysql_fetch_array(mysql_query('SELECT * FROM articles WHERE art_id ='.intval($art_id)));
+          $prix = mysql_fetch_array(mysql_query('SELECT art_prix, art_qte FROM fournir WHERE art_id ='.$art_id.' AND code_fourn = '.$code_fourn));
           //Si le stock est ok, on enregistre la commande pour cet article
-          if($art['art_stock'] >= $art_qte && $art['art_stock'] > 0 && $art_qte > 0)
+          if($prix['art_qte'] >= $art_qte && $prix['art_qte'] > 0 && $art_qte > 0)
           {
-            //Enregistrement de la commande
-            mysql_query("INSERT INTO commandes(com_user, com_art, com_qte, com_key)
+            // Enregistrement des produits
+            mysql_query("INSERT INTO commander(com_id, art_id, code_fourn, com_qte)
             VALUES( '".$_SESSION['user_id']."', '".$art['art_id']."', '".$art_qte."', '".$_COOKIE['key_panier']."')");
-            //Mise à jour du stock
-            $requete_article = mysql_query("SELECT art_stock FROM articles WHERE art_id = '".$art['art_id']."'");
-            $article = mysql_fetch_array($requete_article);
-            $new_qte = intval($article['art_stock']) - $art_qte;
-            mysql_query("UPDATE articles SET art_stock ='".$new_qte."' WHERE art_id = '".$art['art_id']."'");
+            $new_qte = intval($prix['art_qte']) - $art_qte;
+            mysql_query("UPDATE articles SET art_qte ='".$new_qte."' WHERE art_id = '".$art['art_id']."'");
+            $total += $prix['art_qte'] * $art_qte;
           }
         }
+        // Ajout du total à la commande
+        mysql_query("UPDATE commandes SET com_montant = '".$total."' WHERE com_id = '".$key_panier);
         //Révocation de la clé panier utilisée
         mysql_query("UPDATE key_panier SET key_used = '1' WHERE key_panier = '".$key_panier."'");
         //Afficher le bouton pour envoyer sur la page vérifier les informations
         ?></form>
-        <a href="index.php?page=panier&amp;valider" class="button"><button><img src="images/icones/arrow_right.png" alt="" /> Vérifier mes informations</button></a>
+        <a href="index.php?page=panier&amp;valider"><button class="button"><img src="images/icones/arrow_right.png" alt="" /> Vérifier mes informations</button></a>
 <?php
       }
       else
@@ -333,9 +346,9 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
   }
   else
   { ?>
-  <button name="verification_ok" type="submit"><img src="images/icones/arrow_right.png" alt="" /> Valider mon panier</button>
+  <button name="verification_ok" type="submit" class="button"><img src="images/icones/arrow_right.png" alt="" /> Valider mon panier</button>
   </form>
-  <a href="index.php?page=panier" class="button"><button><img src="images/icones/modifier.png" alt="" /> Modifier mon panier</button></a>
+  <a href="index.php?page=panier"><button class="button"><img src="images/icones/modifier.png" alt="" /> Modifier mon panier</button></a>
 <?php
   }
 }
@@ -362,17 +375,21 @@ elseif(isset($_COOKIE['art_panier']) && $_COOKIE['art_panier']!= "a:0:{}")
   //Pour chaque item du panier, récupérer ses infos dans la BDD
   foreach($tableau as $art_id => $art_qte)
   {
+    $tab_code = explode('F', $art_id);
+    $art_id = intval($tab_code[0]);
+    $code_fourn = intval($tab_code[1]);
     $nb_art = $nb_art + $art_qte;
     $requete_art = mysql_query('SELECT * FROM articles WHERE art_id ='.intval($art_id));
     $art = mysql_fetch_array($requete_art);
+    $prix = mysql_fetch_array(mysql_query('SELECT art_prix, art_qte FROM fournir WHERE art_id ='.intval($art_id).' AND code_fourn = '.$code_fourn));
     ?>
     <tr class="panier_ligne">
       <td class="panier_img"><img src="articles/<?php echo $art['art_id']; ?>.jpg" alt="" /></td>
       <td class="panier_name"><a href="index.php?id=<?php echo $art['art_id']; ?>"><?php echo utf8_encode($art['art_name']); ?></a></td>
       <td class="panier_id">id<?php echo $art['art_id']; ?></td>
-      <td class="panier_stock"><?php if($art['art_stock'] > 0)echo '<img src="images/icones/check.png" alt="" />';
+      <td class="panier_stock"><?php if($prix["art_qte"]  > 0)echo '<img src="images/icones/check.png" alt="" />';
       else echo '<img src="images/icones/cross.png" alt="" />'; ?></td>
-      <td class="panier_prix"><?php echo str_replace(".", ",", $art['art_prix']); ?> &#128;</td>
+      <td class="panier_prix"><?php echo str_replace(".", ",", $prix["art_prix"]); ?> &#128;</td>
       <td class="panier_qte">
         <form method="post" action="index.php?page=panier">
         <input type="hidden" name="art_id" value="<?php echo $art['art_id']; ?>" />
@@ -384,7 +401,7 @@ elseif(isset($_COOKIE['art_panier']) && $_COOKIE['art_panier']!= "a:0:{}")
         <button type="submit"><img src="images/icones/trash.gif" alt="" /></button>
         </form>
       </td>
-      <td class="panier_sous_total">+ <?php $sous_total = $art['art_prix'] * $art_qte;
+      <td class="panier_sous_total">+ <?php $sous_total = $prix["art_prix"] * $art_qte;
       echo str_replace(".", ",", $sous_total).' &#128;'; $total = $total + $sous_total;?></td>
     </tr>
     <?php
@@ -392,18 +409,18 @@ elseif(isset($_COOKIE['art_panier']) && $_COOKIE['art_panier']!= "a:0:{}")
 ?>
 <tr><td colspan="7" class="panier_total">TOTAL: <?php echo str_replace(".", ",", $total).' &#128;'; ?> TTC</td></tr>
 </table>
-<form method="post" action="index.php?page=panier">
-<button type="submit" name="delete_panier" value="Vider le panier"><img src="images/icones/trash.gif" alt="" /> Vider le panier</button>
+<form method="post" action="index.php?page=panier" class="form_left">
+<button class="button" type="submit"><img src="images/icones/trash.gif" alt=""> Vider le panier</button>
+<input type="hidden" name="delete_panier" />
 </form>
-<a href="index.php?page=panier&amp;verification_panier" class="button"><button><img src="images/icones/panier_2.png" alt="" /> Vérifier mon panier</button></a>
-
+<a href="index.php?page=panier&amp;verification_panier" class="right"><button class="button"><img src="images/icones/panier_2.png" alt="" /> Vérifier mon panier</button></a>
 <?php
 }
 //Si le cookie n'est pas défini, ou qu'il ne contien aucun article, on affiche 'panier vide'
 else
 {
 ?>
-<h2>Votre panier est vide ! :O</h2>
+<h2>Votre panier est vide.</h2>
 <a href="index.php?cat" class="ariane_hover">Parcourrez les différentes catégories</a>pour faire vos achats.
 <?php
 }

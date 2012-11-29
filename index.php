@@ -122,8 +122,8 @@ include('includes/header.php');
 <header>
   <!-- Inclusion du menu vert affichant le lien vers l'accueil, le panier et le lien vers la page de connexion-->
   <?php include("includes/menu_top.php"); ?>
-  <a href="index.php"><div id="logo"><img src="images/logo.png" alt="" /></div>
-  <div id="texte_logo">Ligue de Paintball<br />de Lorraine
+  <a href="index.php">
+  <div id="texte_logo">Ligue de Paintball de Lorraine
   </div></a>
   <div class="clear"></div>
 </header>
@@ -136,7 +136,7 @@ include('includes/header.php');
     <?php
     $req_menu = mysql_query("SELECT * FROM menu");
      while($menu = mysql_fetch_array($req_menu)) { ?>
-      <li class="onglet_general"><a class="lien_general" href="index.php?page=<?php echo $menu['lien']; ?>"><?php echo $menu['nom']; ?></a><?php
+      <li class="onglet_general"><a class="lien_general <?php if ($_SERVER['REQUEST_URI'] == '/index.php?'.$menu['lien']) echo 'current';?>" href="index.php?<?php echo $menu['lien']; ?>"><?php echo $menu['nom']; ?></a><?php
       if ($menu['lien'] == 'cat') { ?>
         <div class="sous_menu_afficher">
         <ul class="sous_menu_onglets_liste">

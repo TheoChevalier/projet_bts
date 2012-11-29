@@ -201,17 +201,6 @@ table { border-collapse: collapse; border-spacing: 0; }
    Authors: Théo Chevalier
    ========================================================================== */
 @font-face {
-    font-family: 'TizaRegular';
-    src: url('../fonts/tiza-webfont.eot');
-    src: local('☺'),
-     url('../fonts/tiza-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/tiza-webfont.woff') format('woff'),
-         url('../fonts/tiza-webfont.ttf') format('truetype'),
-         url('../fonts/tiza-webfont.svg#TizaRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
     font-family: 'OpenSansLight';
     src: url('../fonts/OpenSans-Light-webfont.eot'),
           url('../fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'),
@@ -225,14 +214,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 #onglets_menu{
   height: 37px;
   background: url('../images/page-background.jpg') repeat-x;
-  border-top-left-radius: 15px;
-  -moz-border-radius-topleft: 15px;
-  border-top-right-radius: 15px;
-  -moz-border-radius-topright: 15px;
   border-bottom: 1px dashed #aaa;
 }
 #onglets_menu ul{list-style: none;margin:0; padding:0;}
-#onglets_menu .onglet_general{
+.onglet_general{
   width: 14.2%;
   height: 37px;
   border-right: 1px dashed #aaa;
@@ -246,13 +231,13 @@ table { border-collapse: collapse; border-spacing: 0; }
   -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
 }
-#onglets_menu .onglet_general .lien_general{
+.lien_general{
   width: 100%;
   height: 27px;
   display: block;
   padding-top: 10px;
   text-decoration: none;
-  text-shadow: -1px -1px 1px #ccc;
+  text-shadow: -1px -1px 1px #ddd;
   font-size: 17px;
   color: #2d2d2d;
   font-weight: bolder;
@@ -269,15 +254,8 @@ table { border-collapse: collapse; border-spacing: 0; }
 {
   text-shadow: 1px 1px 1px #aaa, 0px 0px 2px #aaa;
 }
-#onglets_menu .onglet_general:first-child 
-{
-  border-top-left-radius: 15px;
-  -moz-border-radius-topleft: 15px;
-}
 #onglets_menu .onglet_general:last-child 
 {
-  border-top-right-radius: 15px;
-  -moz-border-radius-topright: 15px;
   border-right: none;
 }
 .onglet_general:hover .sous_menu_afficher{opacity: 1; -moz-opacity: 1; -webkit-opacity: 1; -o-opacity: 1; -ms-opacity: 1; z-index: 2;}
@@ -340,39 +318,6 @@ background: rgb(235,244,227);
 }
 /* Styles de la structure générale des pages */
 body{
-/*background: url('../images/body_bg.png') repeat;
-
-Version -moz désactivée tant que le bug 655786 (https://bugzilla.mozilla.org/show_bug.cgi?id=655786) ne sera pas résolu.
-(Fortes dégradations de performances à l'execution du code dues à un bug de l'accélération matérielle.)
-Version non préfixée egalement désactivée, car -moz rajouté par CSS Cruch à partir de la version non-préfixée.
-
-background:
-  radial-gradient(#171717 15%, transparent 16%) 0 0,
-  radial-gradient(#171717 15%, transparent 16%) 8px 8px,
-  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
- background:
-  -moz-radial-gradient(#171717 15%, transparent 16%) 0 0,
-  -moz-radial-gradient(#171717 15%, transparent 16%) 8px 8px,
-  -moz-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-  -moz-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
- background:
-  -webkit-radial-gradient(#171717 15%, transparent 16%) 0 0,
-  -webkit-radial-gradient(#171717 15%, transparent 16%) 8px 8px,
-  -webkit-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-  -webkit-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
- background:
-  -o-radial-gradient(#171717 15%, transparent 16%) 0 0,
-  -o-radial-gradient(#171717 15%, transparent 16%) 8px 8px,
-  -o-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-  -o-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
- background:
-  -ms-radial-gradient(#171717 15%, transparent 16%) 0 0,
-  -ms-radial-gradient(#171717 15%, transparent 16%) 8px 8px,
-  -ms-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
-  -ms-radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-background-color:#3d3d3d;
-background-size:16px 16px;*/
 background-color: #eee;
 line-height: -100%!important;
 }
@@ -411,6 +356,16 @@ line-height: -100%!important;
   color: #2d2d2d;
   line-height: 17px;
   background: #87c600;/*bleu:008fc6 rose:c60090 vert:87c600*/
+    background-color:#659324;
+	background-repeat:repeat-x;
+	background-image:-khtml-gradient(linear,left top,left bottom,from(#81bc2e),to(#659324));
+	background-image:-moz-linear-gradient(#81bc2e,#659324);
+	background-image:-ms-linear-gradient(#81bc2e,#659324);
+	background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#81bc2e),color-stop(100%,#659324));
+	background-image:-webkit-linear-gradient(#81bc2e,#659324);
+	background-image:-o-linear-gradient(#81bc2e,#659324);
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#81bc2e', endColorstr='#659324', GradientType=0)";
+	background-image:linear-gradient(#81bc2e,#659324);
   margin-bottom: 50px;
   overflow: hidden;
   -webkit-box-shadow: inset 0px 0px 10px #fff, 0px 0px 3px #000;
@@ -499,11 +454,11 @@ line-height: -100%!important;
 }
 #texte_logo{
   float: left;
-  margin-top: 10px;
+  margin-top: 30px;
   margin-left: 15px;
-  font-family: TizaRegular, Impact, Arial;
-  color: #aaa;
-  font-size: 25px;
+  color: #333;
+  font-weight: bold;
+  font-size: 2.2em;
 }
 #header{
   text-align: center;
@@ -575,13 +530,22 @@ line-height: -100%!important;
 .ribbon{
   font-size: 20px;
   font-weight: bolder;
-  color: #333;
-  text-shadow: 1px 1px 0px #ddd, 2px 2px 0px #ddd, 3px 3px 0px #ddd;
+  color: #fff;
   display: block;
   position: relative;
   height: 30px;
   margin: 20px 0px 30px -48px;
   background: #87c600;
+  background-color:#659324;
+	background-repeat:repeat-x;
+	background-image:-khtml-gradient(linear,left top,left bottom,from(#81bc2e),to(#659324));
+	background-image:-moz-linear-gradient(#81bc2e,#659324);
+	background-image:-ms-linear-gradient(#81bc2e,#659324);
+	background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#81bc2e),color-stop(100%,#659324));
+	background-image:-webkit-linear-gradient(#81bc2e,#659324);
+	background-image:-o-linear-gradient(#81bc2e,#659324);
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#81bc2e', endColorstr='#659324', GradientType=0)";
+	background-image:linear-gradient(#81bc2e,#659324);
   padding-top: 5px;
   padding-left: 20px;
   -webkit-border-radius: 0px 30px 30px 0px;
@@ -1609,34 +1573,16 @@ Fin slide
 }
 input[type="radio"], input[type="checkbox"]{border: none;padding: none;width:auto;}
 input[type="text"], input[type="url"], input[type="password"], input[type="email"]{background:#fff;}
-input:focus, textarea:focus, select:focus{
+input:not([type="submit"]), textarea:focus, select:focus{
   background:#f5f5f5;outline:none;border:1px solid #666;
 }
-input[type="submit"], .submit{
-  border-radius: 3px;
-  padding: 5px;
-  border: none;
-  background: #87c600;
-  -ms-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -webkit-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s;
+.submit{
   width: auto;
-  -webkit-box-shadow: inset 0px 0px 1px #fff;
-  -moz-box-shadow: inset 0px 0px 1px #fff;
-  box-shadow: inset 0px 0px 1px #fff;
-  text-shadow: 0px 1px 0px #ccc;
   padding-left:20px;
   padding-right:20px;
 }
-input[type="submit"]:hover, .submit:hover{
-  background: #96db00;
-  -webkit-box-shadow: inset 0px 0px 5px #fff;
-  -moz-box-shadow: inset 0px 0px 5px #fff;
-  box-shadow: inset 0px 0px 5px #fff;
-}
 
+.form_left { display: inline-block;}
 #authentification input[type="text"], #authentification input[type="url"],#authentification input[type="password"], #authentification  input[type="email"], #authentification textarea,
 #auth_statique  input[type="text"], #auth_statique  input[type="url"], #auth_statique  input[type="password"],  #auth_statique  input[type="email"]{
   border: 1px solid #333;
@@ -1715,46 +1661,39 @@ textarea::input-placeholder, input::input-placeholder {
 .rechercher:focus div::after{opacity: 1;}
 .rechercher:focus{width: 200px; color:#000; font-style: normal;}
 /* Style du footer */
-#footer{
-  background-image: linear-gradient(top, rgb(255,255,255) 40px, rgba(51,51,51,0) 80px);
-  background-image: -o-linear-gradient(top, rgb(255,255,255) 40px, rgba(51,51,51,0) 80px);
-  background-image: -moz-linear-gradient(top, rgb(255,255,255) 40px, rgba(51,51,51,0) 80px);
-  background-image: -webkit-linear-gradient(top, rgb(255,255,255) 40px, rgba(51,51,51,0) 80px);
-  background-image: -ms-linear-gradient(top, rgb(255,255,255) 40px, rgba(51,51,51,0) 80px);
-  margin-bottom: 20px;
+footer{
   display: table;
   width: 100%;
 }
-#footer a{color: #333; padding: 5px;}
-#footer ul{
+footer a{color: #333; padding: 5px;}
+footer ul{
   display: table-cell;
   height: 100%;
   width: 25%;
-  padding: 70px 18px 20px 20px;
+  padding: 0 18px 20px 20px;
   list-style-type: none;
   line-height: 19px;
   color: #333;
-  border-right: 1px dashed #999;
-  border-right: 1px dashed rgba(150,150,150,0.6);
+  border-right: 1px solid #ddd;
 }
-#footer ul:last-child {border-right: none;}
-#footer a{
+footer ul:last-child {border-right: none;}
+footer a{
   text-decoration: none;
 }
-#footer a:hover{
+footer a:hover{
   text-decoration: underline;
 }
-#footer li img{
+footer li img{
   float:left;
   padding-right: 10px;
   margin-bottom: 5px;
 }
-#footer .footer_titre{
+.footer_titre{
   font-weight: bolder;
   line-height: 30px;
 }
 .copyright{
-  margin: 20px 0px;
+  margin: 20px 25px;
 }
 /* 404 NOT FOUND */
 .not_found{
@@ -1857,7 +1796,7 @@ border-bottom: 20px solid #fff;}
   h2, h3{ page-break-after: avoid; }
 }
 
-
+/*green*/
 
 .button,.button:link,.button:visited{
 	display:inline-block;
@@ -1892,7 +1831,19 @@ border-bottom: 20px solid #fff;}
 	-moz-transition:all linear .25s;
 	-o-transition:all linear .25s;
 	-ms-transition:all linear .25s;
-	transition:all linear .25s
+	transition:all linear .25s;
+	cursor:pointer;
+	background-color:#81bc2e;
+	background-color:#659324;
+	background-repeat:repeat-x;
+	background-image:-khtml-gradient(linear,left top,left bottom,from(#81bc2e),to(#659324));
+	background-image:-moz-linear-gradient(#81bc2e,#659324);
+	background-image:-ms-linear-gradient(#81bc2e,#659324);
+	background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#81bc2e),color-stop(100%,#659324));
+	background-image:-webkit-linear-gradient(#81bc2e,#659324);
+	background-image:-o-linear-gradient(#81bc2e,#659324);
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#81bc2e', endColorstr='#659324', GradientType=0)";
+	background-image:linear-gradient(#81bc2e,#659324)
 }
 
 .button:hover,.button:link:hover,.button:visited:hover,.button.hover,.button:link.hover,.button:visited.hover,.button:focus,.button:link:focus,.button:visited:focus,.button.focus,.button:link.focus,.button:visited.focus{
@@ -1927,6 +1878,7 @@ border-bottom: 20px solid #fff;}
 
 .button.insensitive,.button:link.insensitive,.button:visited.insensitive,.button.insensitive:hover,.button:link.insensitive:hover,.button:visited.insensitive:hover,.button.insensitive:focus,.button:link.insensitive:focus,.button:visited.insensitive:focus{
 	background-color:#9ca3aa;
+	background-color:#9ca3aa;
 	background-repeat:repeat-x;
 	background-image:-khtml-gradient(linear,left top,left bottom,from(#bfc7cd),to(#9ca3aa));
 	background-image:-moz-linear-gradient(#bfc7cd,#9ca3aa);
@@ -1942,3 +1894,12 @@ border-bottom: 20px solid #fff;}
 	color:#eee
 }
 
+.button small,.button:link small,.button:visited small{
+	display:block
+}
+
+.button:hover,.button:link:hover,.button:visited:hover,.button:focus,.button:link:focus,.button:visited:focus{
+	-webkit-box-shadow:0 2px 0 0 rgba(0,0,0,0.1),inset 0 -2px 0 0 rgba(0,0,0,0.2),inset 0 12px 24px 2px #83c822;
+	-moz-box-shadow:0 2px 0 0 rgba(0,0,0,0.1),inset 0 -2px 0 0 rgba(0,0,0,0.2),inset 0 12px 24px 2px #83c822;
+	box-shadow:0 2px 0 0 rgba(0,0,0,0.1),inset 0 -2px 0 0 rgba(0,0,0,0.2),inset 0 12px 24px 2px #83c822
+}
