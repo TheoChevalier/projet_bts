@@ -213,7 +213,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 /* Style onglets menu */
 #onglets_menu{
   height: 37px;
-  background: url('../images/page-background.jpg') repeat-x;
   border-bottom: 1px dashed #aaa;
 }
 #onglets_menu ul{list-style: none;margin:0; padding:0;}
@@ -248,7 +247,7 @@ table { border-collapse: collapse; border-spacing: 0; }
   transition-duration: 0.1s;
 }
 #onglets_menu .onglet_general:hover{
-  box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2);
+  background-color: #81bc2e;
 }
 #onglets_menu .onglet_general:hover  .lien_general
 {
@@ -319,6 +318,7 @@ background: rgb(235,244,227);
 /* Styles de la structure générale des pages */
 body{
 background-color: #eee;
+background-image: url(../images/noise.png);
 line-height: -100%!important;
 }
 #avertissement{

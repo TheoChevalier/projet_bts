@@ -250,6 +250,7 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
     <th></th>
     <th>Nom</th>
     <th>Ref.</th>
+    <th>Fourn.</th>
     <th>Dispo.</th>
     <th>Prix unitaire</th>
     <th>Quantité commandée</th>
@@ -267,7 +268,8 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
     //On récupère les informations du produit dans la bdd
     $requete_art = mysql_query('SELECT * FROM articles WHERE art_id ='.intval($art_id));
     $art = mysql_fetch_array($requete_art);
-    $prix = mysql_fetch_array(mysql_query('SELECT art_prix, art_qte FROM fournir WHERE art_id ='.intval($art_id).' AND code_fourn = '.$code_fourn));
+    $prix = mysql_fetch_array(mysql_query('SELECT art_prix, art_qte, nom_fourn FROM fournir, fournisseurs
+    WHERE art_id ='.intval($art_id).' AND fournir.code_fourn = '.$code_fourn.' AND fournir.code_fourn = fournisseurs.code_fourn'));
     //Si le stock est supérieur à la quantité commandée, et qu'il est supérieur à 0
     if($prix['art_qte'] >= $art_qte && $prix['art_prix'] > 0 && $art_qte > 0)
     {?>
@@ -276,6 +278,7 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
         <td class="panier_img"><img src="articles/<?php echo $art['art_id']; ?>.jpg" alt="" /></td>
         <td class="panier_name"><?php echo utf8_encode($art['art_name']); ?></td>
         <td class="panier_id">id<?php echo $art['art_id']; ?></td>
+        <td class="panier_id"><?php echo $prix['nom_fourn']; ?></td>
         <td class="panier_stock"><img src="images/icones/check.png" alt="" /></td>
         <td class="panier_prix"><?php echo str_replace(".", ",", $prix['art_prix']); ?> &#128;</td>
         <td class="panier_qte"><?php echo $art_qte; ?></td>
@@ -284,7 +287,7 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
       </tr><?php
     }
   }?>
-  <tr><td colspan="7" class="panier_total">TOTAL: <?php echo str_replace(".", ",", $total).' &#128;'; ?> TTC</td></tr>
+  <tr><td colspan="8" class="panier_total">TOTAL: <?php echo str_replace(".", ",", $total).' &#128;'; ?> TTC</td></tr>
   </table>
 <?php
   //Enregistrement BDD si verification_ok reçu

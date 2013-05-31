@@ -1,5 +1,6 @@
 ﻿<?php
 //Inclusion de ma bibliothèque de fonctions
+include('connexion.php');
 include('fonctions.php');
 //Fonction permettant la connexion à la base de données
 connexionbdd();

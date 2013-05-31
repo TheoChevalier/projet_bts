@@ -212,7 +212,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 /* Style onglets menu */
 #onglets_menu{
 	height: 37px;
-	background: url('../images/page-background.jpg') repeat-x;
 	border-top-left-radius: 15px;
 	-moz-border-radius-topleft: 15px;
 	border-top-right-radius: 15px;
@@ -240,7 +239,6 @@ table { border-collapse: collapse; border-spacing: 0; }
 	display: block;
 	padding-top: 10px;
 	text-decoration: none;
-	text-shadow: -1px -1px 1px #ccc;
 	font-size: 17px;
 	color: #2d2d2d;
 	font-weight: bolder;

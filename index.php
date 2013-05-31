@@ -181,6 +181,10 @@ include('includes/header.php');
 <!-- Corps de la page-->
   <div id="contenu">
 <?php
+while($reponse = mysql_fetch_array(mysql_query("CALL new_routine(2, @res);"))) {
+  echo $reponse["@res"];
+}
+
   if(isset($_GET['id']) && !empty($_GET['id']))
   {
     include("pages/art_details.php");
