@@ -5,13 +5,13 @@ $total= 0;
 if(isset($_COOKIE['art_panier']) && isset($_GET['payer']))
 {
   $masquer_formulaire = false;
-  //Si les coordonnées banquaires ont déjà étées renseignées
+  //Si les coordonnées bancaires ont déjà été renseignées
   if(isset($_POST['payer_carte']))
   {
     $user_id = intval($_SESSION['user_id']);
     $nb_erreurs = 0;
     $erreurs = "";
-    //Vérification des coordonées banquaires
+    //Vérification des coordonnées bancaires
     if(strlen($_POST['payer_carte']) != 16 && is_numeric($_POST['payer_carte']))
     {
       $nb_erreurs++;
@@ -39,14 +39,14 @@ if(isset($_COOKIE['art_panier']) && isset($_GET['payer']))
       , '" . mysql_real_escape_string(utf8_decode($carte_expire)) . "'
       )");
       //Suppression des cookies
-      setcookie("key_panier", false, time() - 3600);
-      setcookie("art_panier", false, time() - 3600);
+      //setcookie("key_panier", false, time() - 3600);
+      //setcookie("art_panier", false, time() - 3600);
       unset($_COOKIE['key_panier']);
       unset($_COOKIE['art_panier']);
       $masquer_formulaire = true;
     }
   }
-  //Si les coordonées banquaires ont déjà été renseignées, on masque ce formulaire
+  //Si les coordonnées bancaires ont déjà été renseignées, on masque ce formulaire
   if($masquer_formulaire == false)
   {  ?>
     <div class="ariane"><a href="index.php" class="ariane_hover">Accueil</a> > <a href="index.php?page=panier" class="ariane_hover">Mon panier</a> > 
@@ -54,7 +54,7 @@ if(isset($_COOKIE['art_panier']) && isset($_GET['payer']))
     <a href="index.php?page=panier&valider" class="ariane_hover">Vérifier l'adresse</a> > 
     <a href="index.php?page=panier&modifier" class="ariane_hover">Modifier l'adresse</a> > 
     <a href="index.php?page=panier&payer" class="ariane_hover">Régler la commande</a></div>
-    <h1 class="ribbon shadow"><span class="ribbon_shadow"></span>Entrez vos coordonées bancaires - Étape 3/3</h1>
+    <h1 class="ribbon shadow"><span class="ribbon_shadow"></span>Entrez vos coordonnées bancaires - Étape 3/3</h1>
 
     <div class="equipe_description content">
     <div class="form_message">
@@ -151,7 +151,7 @@ elseif(isset($_COOKIE['art_panier']) && isset($_GET['modifier']))
       user_cp='".mysql_real_escape_string(utf8_decode($_POST['TB_user_cp']))."',
       user_ville='".mysql_real_escape_string(utf8_decode($_POST['TB_user_ville']))."'
       WHERE user_id='".intval($_SESSION['user_id'])."' ");
-      //On gère le cas où le numéro de téléphone n'et pas renseigné, car il est optionnel
+      //On gère le cas où le numéro de téléphone n'est pas renseigné, car il est optionnel
       if(isset($_POST['TB_user_tel']) && !empty($_POST['TB_user_tel']))
       {
         mysql_query("UPDATE user SET user_tel='".mysql_real_escape_string(intval($_POST["TB_user_tel"]))."' WHERE user_id='".intval($_SESSION['user_id'])."' ");
@@ -264,7 +264,10 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
   {
     $tab_code = explode('F', $art_id);
     $art_id = intval($tab_code[0]);
+    if(isset($tab_code[1])) {
     $code_fourn = intval($tab_code[1]);
+  } else
+     $code_fourn = 1;
     //On récupère les informations du produit dans la bdd
     $requete_art = mysql_query('SELECT * FROM articles WHERE art_id ='.intval($art_id));
     $art = mysql_fetch_array($requete_art);
@@ -299,30 +302,33 @@ elseif(isset($_GET['verification_panier']) && isset($_COOKIE['art_panier']))
       //Vérification que la clé panier n'a jamais servi à enregistrer de commande, et à bien été distribuée.
       $key_panier = $_COOKIE['key_panier'];
       $requete_key = mysql_query("SELECT key_panier FROM key_panier WHERE key_panier = '".$key_panier."' AND key_used = '0'");
-      //Si la clé panier à déjà été enregistrée auparavent et jamais utilisée
+      //Si la clé panier à déjà été enregistrée auparavant et jamais utilisée
       if($requete_key)
       {
         // Enregistrement de la commande
         
             mysql_query("INSERT INTO commandes (com_date, com_id, user_id)
-            VALUES( '".date("Y-m-d", time())."', '".$key_panier."', '".$_SESSION['user_id']."')");
+            VALUES( '".date("Y-m-d H:i:s")."', '".$key_panier."', '".$_SESSION['user_id']."')");
         //Pour chaque articles, je vérifie le stock
         $total = 0;
         foreach($tableau_art_panier as $art_id => $art_qte)
         {
           $tab_code = explode('F', $art_id);
           $art_id = intval($tab_code[0]);
-          $code_fourn = intval($tab_code[1]);
+          if(isset($tab_code[1])) {
+            $code_fourn = intval($tab_code[1]);
+          }else $code_fourn = 1;
           $art = mysql_fetch_array(mysql_query('SELECT * FROM articles WHERE art_id ='.intval($art_id)));
           $prix = mysql_fetch_array(mysql_query('SELECT art_prix, art_qte FROM fournir WHERE art_id ='.$art_id.' AND code_fourn = '.$code_fourn));
           //Si le stock est ok, on enregistre la commande pour cet article
           if($prix['art_qte'] >= $art_qte && $prix['art_qte'] > 0 && $art_qte > 0)
           {
             // Enregistrement des produits
+            echo "ok!";
             mysql_query("INSERT INTO commander(com_id, art_id, code_fourn, com_qte)
-            VALUES( '".$_SESSION['user_id']."', '".$art['art_id']."', '".$art_qte."', '".$_COOKIE['key_panier']."')");
+            VALUES( '".$key_panier."', '".$art['art_id']."', '".$code_fourn."', '".$art_qte."')");
             $new_qte = intval($prix['art_qte']) - $art_qte;
-            mysql_query("UPDATE articles SET art_qte ='".$new_qte."' WHERE art_id = '".$art['art_id']."'");
+            mysql_query("UPDATE fournir SET art_qte ='".$new_qte."' WHERE art_id = '".$art['art_id']."' AND code_fourn = '".$code_fourn."'");
             $total += $prix['art_qte'] * $art_qte;
           }
         }
@@ -380,7 +386,9 @@ elseif(isset($_COOKIE['art_panier']) && $_COOKIE['art_panier']!= "a:0:{}")
   {
     $tab_code = explode('F', $art_id);
     $art_id = intval($tab_code[0]);
+    echo $tab_code[0];
     $code_fourn = intval($tab_code[1]);
+    if(!isset($tab_code[1])) $code_fourn = 1;
     $nb_art = $nb_art + $art_qte;
     $requete_art = mysql_query('SELECT * FROM articles WHERE art_id ='.intval($art_id));
     $art = mysql_fetch_array($requete_art);
@@ -419,7 +427,7 @@ elseif(isset($_COOKIE['art_panier']) && $_COOKIE['art_panier']!= "a:0:{}")
 <a href="index.php?page=panier&amp;verification_panier" class="right"><button class="button"><img src="images/icones/panier_2.png" alt="" /> Vérifier mon panier</button></a>
 <?php
 }
-//Si le cookie n'est pas défini, ou qu'il ne contien aucun article, on affiche 'panier vide'
+//Si le cookie n'est pas défini, ou qu'il ne contient aucun article, on affiche 'panier vide'
 else
 {
 ?>

@@ -247,7 +247,7 @@ table { border-collapse: collapse; border-spacing: 0; }
   transition-duration: 0.1s;
 }
 #onglets_menu .onglet_general:hover{
-  background-color: #81bc2e;
+  background-color: #f9f9f9;
 }
 #onglets_menu .onglet_general:hover  .lien_general
 {

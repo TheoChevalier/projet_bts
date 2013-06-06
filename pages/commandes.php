@@ -61,10 +61,10 @@ if(isset($_GET['com_id']))
         }
         mysql_query("UPDATE commandes SET com_payee = '1', carte_id = ".$carte_id." WHERE com_id = '".mysql_real_escape_string($_GET['com_id'])."'");
         //Suppression des cookies
-        setcookie("key_panier", false, time() - 3600);
-        setcookie("art_panier", false, time() - 3600);
-        setcookie('remise', false, time() - 3600);
-        setcookie('user_id', false, time() - 3600);
+        //setcookie("key_panier", false, time() - 3600);
+        //setcookie("art_panier", false, time() - 3600);
+        //setcookie('remise', false, time() - 3600);
+        //setcookie('user_id', false, time() - 3600);
         unset($_COOKIE['key_panier']);
         unset($_COOKIE['art_panier']);
         unset($_COOKIE['remise']);

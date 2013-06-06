@@ -136,7 +136,7 @@ include('includes/header.php');
     <?php
     $req_menu = mysql_query("SELECT * FROM menu");
      while($menu = mysql_fetch_array($req_menu)) { ?>
-      <li class="onglet_general"><a class="lien_general <?php if ($_SERVER['REQUEST_URI'] == '/index.php?'.$menu['lien']) echo 'current';?>" href="index.php?<?php echo $menu['lien']; ?>"><?php echo $menu['nom']; ?></a><?php
+      <li class="onglet_general"><a class="lien_general" href="index.php?<?php echo $menu['lien']; ?>"><?php echo $menu['nom']; ?></a><?php
       if ($menu['lien'] == 'cat') { ?>
         <div class="sous_menu_afficher">
         <ul class="sous_menu_onglets_liste">
@@ -181,10 +181,6 @@ include('includes/header.php');
 <!-- Corps de la page-->
   <div id="contenu">
 <?php
-while($reponse = mysql_fetch_array(mysql_query("CALL new_routine(2, @res);"))) {
-  echo $reponse["@res"];
-}
-
   if(isset($_GET['id']) && !empty($_GET['id']))
   {
     include("pages/art_details.php");
